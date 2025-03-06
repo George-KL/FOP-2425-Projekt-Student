@@ -49,7 +49,8 @@ public record EdgeImpl(HexGrid grid, TilePosition position1, TilePosition positi
     @StudentImplementationRequired("P1.3")
     public Set<Edge> getConnectedRails(final Player player) {
         // TODO: P1.3
-        return org.tudalgo.algoutils.student.Student.crash("P1.3 - Remove if implemented");
+        return getConnectedEdges().stream().filter(edge -> edge.getRailOwners().contains(player))
+            .collect(Collectors.toSet());
     }
 
     @Override
@@ -125,7 +126,18 @@ public record EdgeImpl(HexGrid grid, TilePosition position1, TilePosition positi
     @StudentImplementationRequired("P1.3")
     public boolean addRail(Player player) {
         // TODO: P1.3
-        return org.tudalgo.algoutils.student.Student.crash("P1.3 - Remove if implemented");
+        if (getRailOwners().contains(player)) return false;
+        if (player.getRails().isEmpty()) {
+            if (!(grid.getStartingCities().containsKey(position1)
+                || grid.getStartingCities().containsKey(position2))) {
+                return false;
+            }
+        } else {
+            if (getConnectedRails(player).isEmpty()) return false;
+
+        }
+        getRailOwners().add(player);
+        return true;
     }
 
     @Override
@@ -137,7 +149,8 @@ public record EdgeImpl(HexGrid grid, TilePosition position1, TilePosition positi
     @StudentImplementationRequired("P1.3")
     public boolean connectsTo(Edge other) {
         // TODO: P1.3
-        return org.tudalgo.algoutils.student.Student.crash("P1.3 - Remove if implemented");
+        return this.getPosition1().equals(other.getPosition2()) || this.getPosition1().equals(other.getPosition1())
+            || this.getPosition2().equals(other.getPosition1()) || this.getPosition2().equals(other.getPosition2());
     }
 
     @Override
@@ -149,6 +162,8 @@ public record EdgeImpl(HexGrid grid, TilePosition position1, TilePosition positi
     @StudentImplementationRequired("P1.3")
     public Set<Edge> getConnectedEdges() {
         // TODO: P1.3
-        return org.tudalgo.algoutils.student.Student.crash("P1.3 - Remove if implemented");
+        return grid.getEdges().values().stream()
+            .filter(edge -> this.connectsTo(edge) &&!this.equals(edge))
+            .collect(Collectors.toSet());
     }
 }

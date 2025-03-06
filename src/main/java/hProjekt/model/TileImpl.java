@@ -55,7 +55,8 @@ public record TileImpl(TilePosition position, Type type, ObservableDoubleValue h
     @StudentImplementationRequired("P1.4")
     public Edge getEdge(final EdgeDirection direction) {
         // TODO: P1.4
-        return org.tudalgo.algoutils.student.Student.crash("P1.4 - Remove if implemented");
+        if (getNeighbour(direction) == null) return null;
+        return hexGrid().getEdges().get(Set.of(this.getPosition(), this.getNeighbour(direction).getPosition()));
     }
 
     @Override
@@ -85,7 +86,19 @@ public record TileImpl(TilePosition position, Type type, ObservableDoubleValue h
     @StudentImplementationRequired("P1.4")
     public Tile getNeighbour(final EdgeDirection direction) {
         // TODO: P1.4
-        return org.tudalgo.algoutils.student.Student.crash("P1.4 - Remove if implemented");
+        int q_new = getPosition().q();
+        int r_new = getPosition().r();
+
+        switch (direction) {
+            case NORTH_EAST ->  { q_new += 1; r_new -= 1; }
+            case EAST -> { q_new += 1; }
+            case SOUTH_EAST -> { r_new += 1; }
+            case SOUTH_WEST -> { q_new -= 1; r_new += 1; }
+            case WEST -> { q_new -= 1; }
+            case NORTH_WEST -> { r_new -= 1; }
+        }
+        return hexGrid.getTileAt(new TilePosition(q_new, r_new));
+
     }
 
     @Override
