@@ -63,7 +63,7 @@ public class GameControllerTest {
                         ReflectionUtilsP.getFieldValue(actual.invoked, "chosenCitiesProperty")),
 
                     context, r ->
-                        "");
+                        "chooseCities() did not set chosenCitiesProperty correctly!");
                 return;
             } catch (Throwable e) {
                 lastCall = e;
