@@ -574,4 +574,11 @@ public class PlayerController {
         // TODO: P2.5
         org.tudalgo.algoutils.student.Student.crash("P2.5 - Remove if implemented");
     }
+
+    @Override
+    public String toString() {
+        return "PlayerController[" + "player=" + player + ", playerStateProperty=" + playerStateProperty
+                + ", playerObjective=" + playerObjective + ", buildingBudget=" + buildingBudget + ", rentedEdges="
+                + rentedEdges + ", hasPath=" + hasPath + ", hasConfirmedPath=" + hasConfirmedPath + "]";
+    }
 }
