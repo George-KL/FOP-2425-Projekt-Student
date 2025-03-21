@@ -151,4 +151,13 @@ public record EdgeImpl(HexGrid grid, TilePosition position1, TilePosition positi
         // TODO: P1.3
         return org.tudalgo.algoutils.student.Student.crash("P1.3 - Remove if implemented");
     }
+
+    @Override
+    public String toString() {
+        return "EdgeImpl[" +
+                "position1=" + position1 +
+                ", position2=" + position2 +
+                ", railOwners=" + railOwners +
+                "]";
+    }
 }
